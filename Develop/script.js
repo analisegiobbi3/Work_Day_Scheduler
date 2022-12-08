@@ -13,48 +13,50 @@ var present = $("present");
 var future = $("future");
 var hour = $("#hour");
 var today = dayjs();
-// var todayTime = new Day();
-// var todayHours = todayTime.getHours();
-// var todayMinutes = odayTime.getMinutes();
+todayHour = new Date();
+
 
 $(function () {
   //Add code to display the current date in the header of the page.
   currentDayEl.text(today.format('[Today is] dddd MMMM D, YYYY'));
-  // currentTimeEl.text(today.format('h:mm A'));
 
-  setInterval(function() {
-    currentTimeEl.text(today.format('h:mm A'));
-  }, 1000);
+  var hourEl = todayHour.getHours();
+  console.log(hourEl)
 
-  btnEl.click(function(){
+  if (hourEl > 12){
+    hourEl = hourEl-12;
+  }
+  
+  btnEl.click(function(event){
+    event.preventDefault();
     var timeEl = $(".hour").val();
     var textEl = $(".description").val();
 
     localStorage.setItem(timeEl, textEl)
 
-
-  })
+  });
 
   // will need to add a loop to look at each section and compare the hour text to the actual time
-  // function getTime(){
-  //   if (hour === todayHours){
-  //     $(this).removeClass("past");
-  //     $(this).removeClass("future");
-  //     $(this).addClass("present");
+  hour = JSON.stringify(hour)
+  function getTime(){
+    if (hourEl === hour){
+      $(this).removeClass("past");
+      $(this).removeClass("future");
+      $(this).addClass("present");
   
-  //   }else if (hour < todayHours){
-  //     $(this).removeClass("present");
-  //     $(this).removeClass("future");
-  //     $(this).addClass("past");
+    }else if (hourEl > hour){
+      $(this).removeClass("present");
+      $(this).removeClass("future");
+      $(this).addClass("past");
   
-  //   }else if (hour > todayHours){
-  //     $(this).removeClass("past");
-  //     $(this).removeClass("present");
-  //     $(this).addClass("future");
-  //   }
-  // }
+    }else if (hourEl < hour){
+      $(this).removeClass("past");
+      $(this).removeClass("present");
+      $(this).addClass("future");
+    }
+  }
 
-  // getTime();
+  getTime();
 
   //gets the value set in each 
   $("#hour-8 .description").val(localStorage.getItem("hour-8"));
