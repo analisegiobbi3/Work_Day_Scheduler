@@ -5,27 +5,23 @@ var currentDayEl = $("#currentDay");
 var currentTimeEl = $("#currentTime");
 var btnEl = $(".saveBtn");
 var descriptionEL = $(".description");
-var hourNineEl = $("#hour-9");
-var hourTenEl = $("#hour-10");
-var hourElevenEl = $("#hour-11");
-var past = $("past");
-var present = $("present");
-var future = $("future");
-var hour = $("#hour");
+var past = $(".past");
+var present = $(".present");
+var future = $(".future");
+var hour = $(".hour");
 var today = dayjs();
-todayHour = new Date();
+var todayHour = new Date();
+var timeBlockEl = $(".time-block")
 
 
 $(function () {
   //Add code to display the current date in the header of the page.
   currentDayEl.text(today.format('[Today is] dddd MMMM D, YYYY'));
-
   var hourEl = todayHour.getHours();
-  console.log(hourEl)
+  var i;
+  //use time block el to grab the id and use idk to compare to time 
 
-  if (hourEl > 12){
-    hourEl = hourEl-12;
-  }
+
   
   btnEl.click(function(event){
     event.preventDefault();
@@ -37,39 +33,43 @@ $(function () {
   });
 
   // will need to add a loop to look at each section and compare the hour text to the actual time
-  hour = JSON.stringify(hour)
+  var calendarTime = timeBlockEl[i].id;
+  hourEL = JSON.stringify(hourEl);
+
   function getTime(){
-    if (hourEl === hour){
-      $(this).removeClass("past");
-      $(this).removeClass("future");
-      $(this).addClass("present");
-  
-    }else if (hourEl > hour){
-      $(this).removeClass("present");
-      $(this).removeClass("future");
-      $(this).addClass("past");
-  
-    }else if (hourEl < hour){
-      $(this).removeClass("past");
-      $(this).removeClass("present");
-      $(this).addClass("future");
+    for (i = 0; i<10; i++){
+      if (hourEl === calendarTime){
+        $(this).removeClass("past");
+        $(this).removeClass("future");
+        $(this).addClass("present");
+    
+      }else if (hourEl > calendarTime){
+        $(this).removeClass("present");
+        $(this).removeClass("future");
+        $(this).addClass("past");
+    
+      }else if (hourEl < calendarTime){
+        $(this).removeClass("past");
+        $(this).removeClass("present");
+        $(this).addClass("future");
+      }
     }
   }
 
   getTime();
 
   //gets the value set in each 
-  $("#hour-8 .description").val(localStorage.getItem("hour-8"));
-  $("#hour-9 .description").val(localStorage.getItem("hour-9"));
-  $("#hour-10 .description").val(localStorage.getItem("hour-10"));
-  $("#hour-11 .description").val(localStorage.getItem("hour-11"));
-  $("#hour-12 .description").val(localStorage.getItem("hour-12"));
-  $("#hour-13 .description").val(localStorage.getItem("hour-13"));
-  $("#hour-14 .description").val(localStorage.getItem("hour-14"));
-  $("#hour-15 .description").val(localStorage.getItem("hour-15"));
-  $("#hour-16 .description").val(localStorage.getItem("hour-16"));
-  $("#hour-17 .description").val(localStorage.getItem("hour-17"));
-  $("#hour-18 .description").val(localStorage.getItem("hour-18"));
+  $("#8 .description").val(localStorage.getItem("8"));
+  $("#9 .description").val(localStorage.getItem("9"));
+  $("#10 .description").val(localStorage.getItem("10"));
+  $("#11 .description").val(localStorage.getItem("11"));
+  $("#12 .description").val(localStorage.getItem("12"));
+  $("#13 .description").val(localStorage.getItem("13"));
+  $("#14 .description").val(localStorage.getItem("14"));
+  $("#15 .description").val(localStorage.getItem("15"));
+  $("#16 .description").val(localStorage.getItem("16"));
+  $("#17 .description").val(localStorage.getItem("17"));
+  $("#18 .description").val(localStorage.getItem("18"));
 
 
 
