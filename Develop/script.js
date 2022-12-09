@@ -14,10 +14,20 @@ var todayHour = new Date();
 var timeBlockEl = $(".time-block")
 
 
+
+
 $(function () {
   //Add code to display the current date in the header of the page.
   currentDayEl.text(today.format('[Today is] dddd MMMM D, YYYY'));
   var hourEl = todayHour.getHours();
+
+  //attempt to add working clock on page
+  function displayTime() {
+    var liveTime = today.format('hh:mm:ss a');
+    currentTimeEl.text(liveTime);
+  }
+  displayTime();
+  setInterval(displayTime, 1000);
 
 
   //fuction saves the element when the button is pressed. If the page is refreshed, the text will hold
@@ -31,26 +41,41 @@ $(function () {
 
 
   function getTime(){
+
     for (var i = 0; i<10; i++){
       //uses the id to figure out time 
       var calendarTime = timeBlockEl[i].id;
       //grabs time and from the hour element above and changes it to a string to compare to cal time
       hourEL = JSON.stringify(hourEl);
-      if (hourEl === calendarTime){
-        $(this).removeClass("past");
-        $(this).removeClass("future");
-        $(this).addClass("present");
-    
-      }else if (hourEl > calendarTime){
-        $(this).removeClass("present");
-        $(this).removeClass("future");
-        $(this).addClass("past");
-    
-      }else if (hourEl < calendarTime){
+      if (calendarTime.isBefore(hourEL)){
         $(this).removeClass("past");
         $(this).removeClass("present");
         $(this).addClass("future");
+      }else if (calendarTime.isAfter(hourEL)){
+        $(this).removeClass("present");
+        $(this).removeClass("future");
+        $(this).addClass("past");
+      }else{
+        $(this).removeClass("past");
+        $(this).removeClass("future");
+        $(this).addClass("present");
       }
+
+      // if (hourEl === calendarTime){
+      //   $(this).removeClass("past");
+      //   $(this).removeClass("future");
+      //   $(this).addClass("present");
+    
+      // }else if (hourEl > calendarTime){
+      //   $(this).removeClass("present");
+      //   $(this).removeClass("future");
+      //   $(this).addClass("past");
+    
+      // }else if (hourEl < calendarTime){
+      //   $(this).removeClass("past");
+      //   $(this).removeClass("present");
+      //   $(this).addClass("future");
+      // }
     }
   }
 
