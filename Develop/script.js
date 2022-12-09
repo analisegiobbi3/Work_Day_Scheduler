@@ -5,14 +5,9 @@ var currentDayEl = $("#currentDay");
 var currentTimeEl = $("#currentTime");
 var btnEl = $(".saveBtn");
 var descriptionEL = $(".description");
-var past = $(".past");
-var present = $(".present");
-var future = $(".future");
 var hour = $(".hour");
 var today = dayjs();
-var todayHour = new Date();
 var timeBlockEl = $(".time-block")
-
 
 
 
@@ -39,34 +34,56 @@ $(function () {
     localStorage.setItem(timeEl, textEl)
   });
 
-
   function getTime(){
-
-    for (var i = 0; i<10; i++){
-      //uses the id to figure out time 
-      var calendarTime = timeBlockEl[i].id;
-      var hourEl = todayHour.getHours();
-      // console.log(calendarTime)
-      // console.log(hourEl)
-      //grabs time and from the hour element above and changes it to a string to compare to cal time
-      hourEL = JSON.stringify(hourEl);
-      if (hourEl === calendarTime){
+    $(".time-block").each(function(){
+      // var calendarTime = timeBlockEl.id;
+      var calendarTime = parseInt($(this).attr('id'))
+      var hourEl = today.hour();
+      if (hourEl < calendarTime){
         $(this).removeClass("past");
-        $(this).removeClass("future");
-        $(this).addClass("present");
+        $(this).removeClass("present");
+        $(this).addClass("future");
     
       }else if (hourEl > calendarTime){
         $(this).removeClass("present");
         $(this).removeClass("future");
         $(this).addClass("past");
     
-      }else if (hourEl < calendarTime){
+      }else{
         $(this).removeClass("past");
-        $(this).removeClass("present");
-        $(this).addClass("future");
+        $(this).removeClass("future");
+        $(this).addClass("present");
       }
-    }
+
+    })
   }
+
+  // function getTime(){
+
+  //   for (var i = 0; i<10; i++){
+  //     //uses the id to figure out time 
+  //     var calendarTime = timeBlockEl[i].id;
+  //     var hourEl = today.hour();
+  //     // console.log(calendarTime)
+  //     // console.log(hourEl)
+  //     //grabs time and from the hour element above and changes it to a string to compare to cal time
+  //     if (hourEl < calendarTime){
+  //       $(this).removeClass("past");
+  //       $(this).removeClass("present");
+  //       $(this).addClass("future");
+    
+  //     }else if (hourEl > calendarTime){
+  //       $(this).removeClass("present");
+  //       $(this).removeClass("future");
+  //       $(this).addClass("past");
+    
+  //     }else{
+  //       $(this).removeClass("past");
+  //       $(this).removeClass("future");
+  //       $(this).addClass("present");
+  //     }
+  //   }
+  // }
 
   //calls function that changes color of elements to reflect time
   getTime();
