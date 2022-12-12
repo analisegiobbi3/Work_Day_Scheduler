@@ -1,24 +1,22 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+//variables for ids within the function
 var currentDayEl = $("#currentDay");
 var currentTimeEl = $("#currentTime");
 var btnEl = $(".saveBtn");
 var descriptionEL = $(".description");
 var hour = $(".hour");
 var today = dayjs();
-var timeBlockEl = $(".time-block")
+var timeBlockEl = $(".time-block");
 
 
 
 $(function () {
-  //Add code to display the current date in the header of the page.
+  //Uses the current day id to add the date to the program 
   currentDayEl.text(today.format('[Today is] dddd MMMM D, YYYY'));
   
 
-  //attempt to add working clock on page
+  //attempt to add working clock on page. Looks like clock displayed but can't get countdown to work
   function displayTime() {
-    var liveTime = today.format('hh:mm:ss a');
+    var liveTime = today.format('hh:mm a');
     currentTimeEl.text(liveTime);
   }
   displayTime();
@@ -26,18 +24,20 @@ $(function () {
 
 
   //fuction saves the element when the button is pressed. If the page is refreshed, the text will hold
+
   btnEl.click(function(event){
     event.preventDefault();
-    var timeEl = $(this).parent().attr("id")
+    var timeEl = $(this).parent().attr("id");
     // var textEl = $(this).siblings(".description").attr
-    var textEl = $(this).siblings(".description").val()
-    localStorage.setItem(timeEl, textEl)
+    var textEl = $(this).siblings(".description").val();
+    localStorage.setItem(timeEl, textEl);
   });
 
+  // function for adding color to the boxes based on the current time
   function getTime(){
     $(".time-block").each(function(){
       // var calendarTime = timeBlockEl.id;
-      var calendarTime = parseInt($(this).attr('id'))
+      var calendarTime = parseInt($(this).attr('id'));
       var hourEl = today.hour();
       if (hourEl < calendarTime){
         $(this).removeClass("past");
@@ -57,6 +57,8 @@ $(function () {
 
     })
   }
+
+  //attempt to use a for loop to add color. Leaving this here to revist and figure out why this didn't work 
 
   // function getTime(){
 

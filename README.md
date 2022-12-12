@@ -32,6 +32,17 @@ WHEN I refresh the page
 THEN the saved events persist
 ```
 
+## How to Use Application
+
+In the text boxes, type your assignment. Click the save button to save the item. If you refresh the page, this will save. 
+
+![Click to save](./Assets/saveText.png)
+
+The colors presented on the page demonstrate past, present, or future time slots. Grey means past, red means present, green means future. These color codes change based on the times comparison.
+
+![Timing coloring](./Assets/color.png)
+
+## Link
 
 - - -
 © 2022 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
